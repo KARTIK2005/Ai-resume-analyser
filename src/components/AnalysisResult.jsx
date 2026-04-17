@@ -25,17 +25,17 @@ export function AnalysisResult({ result }) {
       </div>
 
       {/* Top Section: Score & Chart */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-        <div className="flex flex-col">
-          <h3 className="text-lg font-semibold text-slate-800 mb-4 px-1">ATS Score</h3>
-          <div className="flex-1">
+      <div className="flex flex-col md:grid md:grid-cols-2 gap-8 md:gap-10">
+        <div className="flex flex-col gap-4">
+          <h3 className="text-lg font-semibold text-slate-800 px-1">ATS Score</h3>
+          <div className="flex-1 min-h-[320px]">
             <ScoreCard score={score} />
           </div>
         </div>
         
-        <div className="flex flex-col">
-          <h3 className="text-lg font-semibold text-slate-800 mb-4 px-1 mt-8">Skills Breakdown</h3>
-          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex-1 flex items-center justify-center min-h-[300px]">
+        <div className="flex flex-col gap-4 mt-4 md:mt-0">
+          <h3 className="text-lg font-semibold text-slate-800 px-1">Skills Breakdown</h3>
+          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex-1 flex items-center justify-center min-h-[320px]">
              <SkillMatchChart 
                matchedSkillsCount={matched_skills.length} 
                missingSkillsCount={missing_skills.length} 

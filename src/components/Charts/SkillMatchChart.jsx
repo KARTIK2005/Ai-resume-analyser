@@ -1,6 +1,18 @@
 import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 
+const CustomTooltip = ({ active, payload }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-white border border-slate-200 p-3 rounded-xl shadow-lg ring-1 ring-slate-900/5">
+        <p className="text-sm font-semibold text-slate-800">{payload[0].name}</p>
+        <p className="text-sm text-slate-600">Count: <span className="font-bold">{payload[0].value}</span></p>
+      </div>
+    );
+  }
+  return null;
+};
+
 export function SkillMatchChart({ matchedSkillsCount, missingSkillsCount }) {
   const data = [
     { name: 'Matched Skills', value: matchedSkillsCount },
@@ -8,18 +20,6 @@ export function SkillMatchChart({ matchedSkillsCount, missingSkillsCount }) {
   ];
 
   const COLORS = ['#22c55e', '#ef4444'];
-
-  const CustomTooltip = ({ active, payload }) => {
-    if (active && payload && payload.length) {
-      return (
-        <div className="bg-white border border-slate-200 p-3 rounded-xl shadow-lg ring-1 ring-slate-900/5">
-          <p className="text-sm font-semibold text-slate-800">{payload[0].name}</p>
-          <p className="text-sm text-slate-600">Count: <span className="font-bold">{payload[0].value}</span></p>
-        </div>
-      );
-    }
-    return null;
-  };
 
   return (
     <div className="h-64 w-full" style={{ minWidth: 0 }}>

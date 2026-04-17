@@ -6,6 +6,20 @@ export function UploadResume({ file, setFile }) {
   const [isDragActive, setIsDragActive] = useState(false);
   const fileInputRef = useRef(null);
 
+  const validateAndSetFile = useCallback((selectedFile) => {
+    const validTypes = [
+      'application/pdf', 
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'application/msword'
+    ];
+    
+    if (validTypes.includes(selectedFile.type)) {
+      setFile(selectedFile);
+    } else {
+      alert("Please upload a valid PDF or DOCX file.");
+    }
+  }, [setFile]);
+
   const handleDragEnter = useCallback((e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -27,28 +41,7 @@ export function UploadResume({ file, setFile }) {
       const droppedFile = e.dataTransfer.files[0];
       validateAndSetFile(droppedFile);
     }
-  }, []);
-
-  const handleChange = (e) => {
-    if (e.target.files && e.target.files.length > 0) {
-      const selectedFile = e.target.files[0];
-      validateAndSetFile(selectedFile);
-    }
-  };
-
-  const validateAndSetFile = (selectedFile) => {
-    const validTypes = [
-      'application/pdf', 
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-      'application/msword'
-    ];
-    
-    if (validTypes.includes(selectedFile.type)) {
-      setFile(selectedFile);
-    } else {
-      alert("Please upload a valid PDF or DOCX file.");
-    }
-  };
+  }, [validateAndSetFile]);
 
   const removeFile = (e) => {
     e.stopPropagation();
@@ -72,7 +65,11 @@ export function UploadResume({ file, setFile }) {
       <input
         type="file"
         ref={fileInputRef}
-        onChange={handleChange}
+        onChange={(e) => {
+          if (e.target.files && e.target.files[0]) {
+            validateAndSetFile(e.target.files[0]);
+          }
+        }}
         accept=".pdf,.docx,.doc"
         className="hidden"
       />

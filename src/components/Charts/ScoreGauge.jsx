@@ -11,43 +11,46 @@ export function ScoreGauge({ score }) {
   ];
 
   return (
-    <div className="relative w-full h-56 flex flex-col items-center justify-center overflow-hidden">
-      {/* Chart container - takes up the top part */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="w-full h-full" style={{ minWidth: 0 }}>
-          <ResponsiveContainer width="100%" height="100%" minWidth={0}>
-            <RadialBarChart 
-              cx="50%" 
-              cy="70%" 
-              innerRadius="75%" 
-              outerRadius="105%" 
-              barSize={28} 
-              data={data} 
-              startAngle={180} 
-              endAngle={0}
-            >
-              <PolarAngleAxis
-                type="number"
-                domain={[0, 100]}
-                angleAxisId={0}
-                tick={false}
-              />
-              <RadialBar
-                minAngle={15}
-                background={{ fill: '#f1f5f9' }}
-                clockWise
-                dataKey="value"
-                cornerRadius={14}
-              />
-            </RadialBarChart>
-          </ResponsiveContainer>
-        </div>
+    <div className="relative w-full h-48 sm:h-56 flex items-center justify-center overflow-hidden pt-4">
+      {/* Chart container */}
+      <div className="w-full h-full max-w-[280px]">
+        <ResponsiveContainer width="100%" height="100%">
+          <RadialBarChart 
+            cx="50%" 
+            cy="80%" 
+            innerRadius="80%" 
+            outerRadius="120%" 
+            barSize={32} 
+            data={data} 
+            startAngle={180} 
+            endAngle={0}
+          >
+            <PolarAngleAxis
+              type="number"
+              domain={[0, 100]}
+              angleAxisId={0}
+              tick={false}
+            />
+            <RadialBar
+              minAngle={15}
+              background={{ fill: '#f1f5f9' }}
+              clockWise
+              dataKey="value"
+              cornerRadius={16}
+            />
+          </RadialBarChart>
+        </ResponsiveContainer>
       </div>
       
-      {/* Text container - pushed down to sit inside/below the arc */}
-      <div className="relative z-10 flex flex-col items-center justify-center mt-12">
-        <span className="text-5xl font-black text-slate-800 tracking-tighter">{score}</span>
-        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] -mt-1">
+      {/* Centered Score Text */}
+      <div className="absolute inset-x-0 bottom-[18%] flex flex-col items-center justify-center">
+        <span 
+          className="text-5xl sm:text-6xl font-black tracking-tighter leading-none"
+          style={{ color: data[0].fill }}
+        >
+          {score}
+        </span>
+        <span className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-[0.2em] mt-1">
           ATS Score
         </span>
       </div>
